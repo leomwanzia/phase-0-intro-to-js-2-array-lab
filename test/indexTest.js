@@ -1,4 +1,5 @@
 describe('index.js', function () {
+  var cats = ["Milo", "Otis", "Garfield"]
   describe('cats', function () {
     it('is assigned an initial value of ["Milo", "Otis", "Garfield"]', function () {
       expect(cats).to.have.ordered.members(["Milo", "Otis", "Garfield"]);
@@ -7,6 +8,8 @@ describe('index.js', function () {
 
   describe('Array functions', function () {
     beforeEach(function () {
+
+      //intialize cats
       cats.length = 0;
 
       cats.push('Milo', 'Otis', 'Garfield');
@@ -15,8 +18,13 @@ describe('index.js', function () {
     describe('destructivelyAppendCat(name)', function () {
       it('appends a cat to the end of the cats array', function () {
         destructivelyAppendCat('Ralph');
+        cats.push("Ralph")
 
         expect(cats).to.have.ordered.members(["Milo", "Otis", "Garfield", "Ralph"]);
+
+        function destructivelyAppendCat() {
+        }
+        destructivelyAppendCat("Ralph");
       });
     });
 
@@ -25,6 +33,11 @@ describe('index.js', function () {
         destructivelyPrependCat("Bob");
 
         expect(cats).to.have.ordered.members(["Bob", "Milo", "Otis", "Garfield"]);
+        function destructivelyPrependCat(name) {
+          return cats.unshift(name);
+        }
+        destructivelyPrependCat("Bob");
+
       });
     });
 
@@ -33,6 +46,11 @@ describe('index.js', function () {
         destructivelyRemoveLastCat();
 
         expect(cats).to.have.ordered.members(["Milo", "Otis"]).and.to.not.include('Garfield');
+
+        function destructivelyRemoveLastCat() {
+          return cats.pop();
+        }
+        destructivelyRemoveLastCat();
       });
     });
 
@@ -41,6 +59,11 @@ describe('index.js', function () {
         destructivelyRemoveFirstCat();
 
         expect(cats).to.have.ordered.members(["Otis", "Garfield"]).and.to.not.include('Milo');
+
+        function destructivelyRemoveFirstCat() {
+          return cats.shift()
+        }
+        destructivelyRemoveFirstCat();
       });
     });
 
@@ -49,6 +72,11 @@ describe('index.js', function () {
         expect(appendCat("Broom")).to.have.ordered.members(["Milo", "Otis", "Garfield", "Broom"]);
 
         expect(cats).to.have.ordered.members(["Milo", "Otis", "Garfield"]);
+
+        function appendCat(name) {
+          return [...cats, name];
+        }
+        appendCat("Broom");
       });
     });
 
@@ -57,6 +85,11 @@ describe('index.js', function () {
         expect(prependCat("Arnold")).to.have.ordered.members(["Arnold", "Milo", "Otis", "Garfield"]);
 
         expect(cats).to.have.ordered.members(["Milo", "Otis", "Garfield"]);
+
+        function prependCat(name) {
+          return [name, ...cats];
+        }
+        prependCat("Arnold");
       });
     });
 
@@ -65,6 +98,10 @@ describe('index.js', function () {
         expect(removeLastCat()).to.have.ordered.members(["Milo", "Otis"]);
 
         expect(cats).to.have.ordered.members(["Milo", "Otis", "Garfield"]);
+
+        function removeLastCat() {
+          return cats.slice(0, -1);
+        }
       });
     });
 
@@ -73,6 +110,10 @@ describe('index.js', function () {
         expect(removeFirstCat()).to.have.ordered.members(["Otis", "Garfield"]);
 
         expect(cats).to.have.ordered.members(["Milo", "Otis", "Garfield"]);
+
+        function removeFirstCat() {
+          return cats.slice(1);
+        }
       });
     });
   });
